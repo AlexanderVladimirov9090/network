@@ -1,6 +1,5 @@
-Download:
-happy path return string of content; done
-empty content do not download; done
-not full content downloaded throw exception fileBroken; done
-bigger than expectedl; done
+DownloadFileFromResource:
+happy path return string of content;
+empty content do not download;
+not download dir suported;
 
