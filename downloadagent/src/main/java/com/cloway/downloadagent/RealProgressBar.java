@@ -18,6 +18,7 @@ public class RealProgressBar implements ProgressBar {
         if (percentage % 10 != 0) {
 
         }
+        System.out.println(percentage);
         return percentage;
     }
 }

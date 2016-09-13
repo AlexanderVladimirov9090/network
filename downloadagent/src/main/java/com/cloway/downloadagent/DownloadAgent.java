@@ -27,20 +27,20 @@ public class DownloadAgent {
     /**
      * Downloads file from given resource.
      *
-     * @param url         given resource's url for download.
+     * @param givenURL         given resource's url for download.
      * @param downloadDir given directory to be downloaded
      */
-    public void download(String url, String downloadDir) {
+    public void download(String givenURL, String downloadDir) {
 
         try {
-            URL uRL = new URL(url);
+            URL uRL = new URL(givenURL);
             URLConnection urlConnection = uRL.openConnection();
             InputStream inputStream = urlConnection.getInputStream();
             ReadableByteChannel channel = Channels.newChannel(inputStream);
             ByteBuffer byteBuffer = ByteBuffer.allocate(64);
             int size = urlConnection.getContentLength();
 
-            String fileName = url.substring(url.lastIndexOf('/'));
+            String fileName = givenURL.substring(givenURL.lastIndexOf('/'));
             FileOutputStream fos = new FileOutputStream(downloadDir + fileName);
 
             write(channel, byteBuffer, size, fos);
@@ -82,9 +82,8 @@ public class DownloadAgent {
      */
     private void percentage(int sum, int size) {
         int percentage = (sum * 100) / size;
-        if (percentage % 10 != 0) {
-
+        if (percentage % 10 == 0) {
+            progressBar.showProgress(percentage);
         }
-        progressBar.showProgress(percentage);
     }
 }
