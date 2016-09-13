@@ -24,17 +24,23 @@ public class DownloadAgent {
         this.progressBar = progressBar;
     }
 
-    public void download(String urlString, String downloadDir) {
+    /**
+     * Downloads file from given resource.
+     *
+     * @param url         given resource's url for download.
+     * @param downloadDir given directory to be downloaded
+     */
+    public void download(String url, String downloadDir) {
 
         try {
-            URL uRL = new URL(urlString);
+            URL uRL = new URL(url);
             URLConnection urlConnection = uRL.openConnection();
             InputStream inputStream = urlConnection.getInputStream();
             ReadableByteChannel channel = Channels.newChannel(inputStream);
             ByteBuffer byteBuffer = ByteBuffer.allocate(64);
             int size = urlConnection.getContentLength();
 
-            String fileName = urlString.substring(urlString.lastIndexOf('/'));
+            String fileName = url.substring(url.lastIndexOf('/'));
             FileOutputStream fos = new FileOutputStream(downloadDir + fileName);
 
             write(channel, byteBuffer, size, fos);
@@ -49,6 +55,15 @@ public class DownloadAgent {
 
     }
 
+    /**
+     * Writes to file.
+     *
+     * @param channel    readable byte channel for reading byte from recourse.
+     * @param byteBuffer
+     * @param size       size of file.
+     * @param fos        File output stream for writing in to file.
+     * @throws IOException when something is wrong with writing.
+     */
     private void write(ReadableByteChannel channel, ByteBuffer byteBuffer, int size, FileOutputStream fos) throws IOException {
         int sum = 0;
         while (channel.read(byteBuffer) > 0) {
@@ -59,6 +74,12 @@ public class DownloadAgent {
         }
     }
 
+    /**
+     * Calculates percentage
+     *
+     * @param sum  sum of delivered bytes
+     * @param size size of file.
+     */
     private void percentage(int sum, int size) {
         int percentage = (sum * 100) / size;
         if (percentage % 10 != 0) {
