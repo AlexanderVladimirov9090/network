@@ -43,7 +43,13 @@ public class DownloadAgent {
             String fileName = givenURL.substring(givenURL.lastIndexOf('/'));
             FileOutputStream fos = new FileOutputStream(downloadDir + fileName);
 
-            write(channel, byteBuffer, size, fos);
+            int sum = 0;
+            while (channel.read(byteBuffer) > 0) {
+                fos.write(byteBuffer.array());
+                sum += byteBuffer.array().length;
+                percentage(sum, size);
+                byteBuffer.clear();
+            }
             channel.close();
         } catch (MalformedURLException e) {
             throw new UnreachableOrBrokenResource("Not valid resource.");
@@ -53,25 +59,6 @@ public class DownloadAgent {
             throw new UnreachableOrBrokenResource("Interrupted download.");
         }
 
-    }
-
-    /**
-     * Writes to file.
-     *
-     * @param channel    readable byte channel for reading byte from recourse.
-     * @param byteBuffer
-     * @param size       size of file.
-     * @param fos        File output stream for writing in to file.
-     * @throws IOException when something is wrong with writing.
-     */
-    private void write(ReadableByteChannel channel, ByteBuffer byteBuffer, int size, FileOutputStream fos) throws IOException {
-        int sum = 0;
-        while (channel.read(byteBuffer) > 0) {
-            fos.write(byteBuffer.array());
-            sum += byteBuffer.array().length;
-            percentage(sum, size);
-            byteBuffer.clear();
-        }
     }
 
     /**
