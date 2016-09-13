@@ -42,14 +42,8 @@ public class DownloadAgent {
 
             String fileName = givenURL.substring(givenURL.lastIndexOf('/'));
             FileOutputStream fos = new FileOutputStream(downloadDir + fileName);
-
-            int sum = 0;
-            while (channel.read(byteBuffer) > 0) {
-                fos.write(byteBuffer.array());
-                sum += byteBuffer.array().length;
-                percentage(sum, size);
-                byteBuffer.clear();
-            }
+            fos.getChannel().transferFrom(channel, 0, Long.MAX_VALUE);
+            percentage(size);
             channel.close();
         } catch (MalformedURLException e) {
             throw new UnreachableOrBrokenResource("Not valid resource.");
@@ -63,12 +57,15 @@ public class DownloadAgent {
 
     /**
      * Calculates percentage
-     *
-     * @param sum  sum of delivered bytes
      * @param size size of file.
      */
-    private void percentage(int sum, int size) {
+    private void percentage(int size) {
+       int sum=0;
+        while (sum<=size){
+            sum++;
+        }
         int percentage = (sum * 100) / size;
+
         if (percentage % 10 == 0) {
             progressBar.showProgress(percentage);
         }
