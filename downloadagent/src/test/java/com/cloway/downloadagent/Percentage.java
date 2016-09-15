@@ -19,7 +19,7 @@ public class Percentage {
     ProgressBar progressBar = context.mock(ProgressBar.class);
 
     @Test
-    public void happyPath() {
+    public void happyPath(){
         String urlString = "../downloadagent/expected/picture-11.jpg";
         String downloadDir = "../downloadagent/actual/";
         DownloadAgent downloadAgent = new DownloadAgent(progressBar);

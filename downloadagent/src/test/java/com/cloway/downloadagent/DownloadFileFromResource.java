@@ -22,7 +22,7 @@ public class DownloadFileFromResource {
     private ProgressBar progressBar = (downloadedContent, size) -> System.out.println((downloadedContent * 100) / size);
 
     @Test
-    public void happyPath() throws IOException, URISyntaxException {
+    public void happyPath(){
         String urlString = "../downloadagent/expected/picture-11.jpg";
         File file = new File("../downloadagent/actual/picture-11.jpg");
         String downloadDir = "../downloadagent/actual/";
@@ -35,7 +35,7 @@ public class DownloadFileFromResource {
 
 
     @Test
-    public void totalSpace() throws IOException {
+    public void totalSpace(){
         String urlString = "../downloadagent/expected/picture-11.jpg";
         String downloadDir = "../downloadagent/actual/";
         DownloadAgent downloadAgent = new DownloadAgent(progressBar);
@@ -47,7 +47,7 @@ public class DownloadFileFromResource {
     }
 
     @Test(expected = UnreachableOrBrokenResource.class)
-    public void emptyResource() throws IOException {
+    public void emptyResource(){
         String urlString = "";
         String downloadDir = "../downloadagent/actual/picture-11.jpg";
         DownloadAgent downloadAgent = new DownloadAgent(progressBar);
@@ -56,7 +56,7 @@ public class DownloadFileFromResource {
     }
 
     @Test(expected = DownloadDirectoryException.class)
-    public void noDirProvided() throws IOException {
+    public void noDirProvided(){
         String urlString = "../downloadagent/expected/picture-11.jpg";
         String downloadDir = "";
         DownloadAgent downloadAgent = new DownloadAgent(progressBar);

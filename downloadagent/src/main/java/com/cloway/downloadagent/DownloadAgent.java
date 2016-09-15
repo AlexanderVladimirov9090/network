@@ -51,7 +51,7 @@ public class DownloadAgent {
             fis.close();
             bis.close();
         } catch (IOException e) {
-            throw new UnreachableOrBrokenResource("Shit");
+            throw new UnreachableOrBrokenResource("Can't write content to file.");
         }
     }
 
