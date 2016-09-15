@@ -1,8 +1,6 @@
 package com.cloway.downloadagent;
 
 import org.jmock.Expectations;
-import org.jmock.Sequence;
-import org.jmock.auto.Auto;
 import org.jmock.integration.junit4.JUnitRuleMockery;
 import org.junit.Rule;
 import org.junit.Test;

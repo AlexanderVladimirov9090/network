@@ -4,9 +4,6 @@ package com.cloway.downloadagent;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

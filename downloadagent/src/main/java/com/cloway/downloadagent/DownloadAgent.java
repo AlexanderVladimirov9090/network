@@ -54,6 +54,4 @@ public class DownloadAgent {
             throw new UnreachableOrBrokenResource("Can't write content to file.");
         }
     }
-
-
 }
