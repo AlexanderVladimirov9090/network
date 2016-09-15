@@ -5,14 +5,8 @@ package com.cloway.downloadagent;
  *
  * @author Alexander Vladimirov
  *         <alexandervladimirov1902@gmail.com>
- *         This progress bar interface is used for showing percentage of downloaded file.
+ * This interface is used by Donwload Agent to comunicate with Real Implementation of Progress bar.
  */
-public interface ProgressBar {
-    /**
-     * Show percentage of downloaded file.
-     *
-     * @param percentage calculated percentage.
-     * @return percentage.
-     */
-    int showProgress(int percentage);
+public interface ProgressBar{
+    void update(long downloadedContent, long size);
 }

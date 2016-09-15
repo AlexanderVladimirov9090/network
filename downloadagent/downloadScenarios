@@ -1,4 +1,4 @@
-DownloadFileFromResource:
+com.cloway.downloadagent.DownloadFileFromResource:
 happy path return string of content;
 empty content do not download;
 not download dir suported;
