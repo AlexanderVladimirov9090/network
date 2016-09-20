@@ -18,7 +18,7 @@ public class Percentage {
 
     @Test
     public void happyPath(){
-        String urlString = "../downloadagent/expected/picture-11.jpg";
+        String urlString = "file:///home/clouway/workspace/networking-and-gui/downloadagent/expected/picture-11.jpg";
         String downloadDir = "../downloadagent/actual/";
         DownloadAgent downloadAgent = new DownloadAgent(progressBar);
 

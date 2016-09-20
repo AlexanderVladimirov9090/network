@@ -21,7 +21,7 @@ public class DownloadFileFromResource {
 
     @Test
     public void happyPath() {
-        String urlString = "../downloadagent/expected/picture-11.jpg";
+        String urlString = "file:///home/clouway/workspace/networking-and-gui/downloadagent/expected/picture-11.jpg";
         File file = new File("../downloadagent/actual/picture-11.jpg");
         String downloadDir = "../downloadagent/actual/";
         DownloadAgent downloadAgent = new DownloadAgent(progressBar);
@@ -34,7 +34,7 @@ public class DownloadFileFromResource {
 
     @Test
     public void totalSpace() {
-        String urlString = "../downloadagent/expected/picture-11.jpg";
+        String urlString = "file:///home/clouway/workspace/networking-and-gui/downloadagent/expected/picture-11.jpg";
         String downloadDir = "../downloadagent/actual/";
         DownloadAgent downloadAgent = new DownloadAgent(progressBar);
 
@@ -47,7 +47,7 @@ public class DownloadFileFromResource {
     @Test(expected = UnreachableOrBrokenResource.class)
     public void emptyResource() {
         String urlString = "";
-        String downloadDir = "../downloadagent/actual/picture-11.jpg";
+        String downloadDir = "../downloadagent/actual/";
         DownloadAgent downloadAgent = new DownloadAgent(progressBar);
         downloadAgent.download(urlString, downloadDir);
 
@@ -55,7 +55,7 @@ public class DownloadFileFromResource {
 
     @Test(expected = DownloadDirectoryException.class)
     public void noDirProvided() {
-        String urlString = "../downloadagent/expected/picture-11.jpg";
+        String urlString = "file:///home/clouway/workspace/networking-and-gui/downloadagent/expected/picture-11.jpg";
         String downloadDir = "";
         DownloadAgent downloadAgent = new DownloadAgent(progressBar);
         downloadAgent.download(urlString, downloadDir);

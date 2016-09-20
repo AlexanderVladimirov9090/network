@@ -1,7 +1,11 @@
 package com.cloway.downloadagent;
 
-import java.io.*;
-import java.net.*;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLConnection;
 
 /**
  * Created by clouway on 13.09.16.
@@ -23,35 +27,33 @@ public class DownloadAgent {
      * @param downloadPath download path.
      */
     public void download(String urlString, String downloadPath) {
-        File downloadContent = new File(urlString);
-        if (!downloadContent.isFile()) {
-            throw new UnreachableOrBrokenResource("Unreachable or broken resource");
-        }
-
         File downloadDir = new File(downloadPath);
         if (!downloadDir.isDirectory()) {
-            throw new DownloadDirectoryException("Directory not found.");
+            throw new DownloadDirectoryException("See if directory exists.");
         }
         try {
-            String constructedUrlPath = downloadContent.toURI().getScheme() + "://" + downloadContent.getCanonicalPath();
-            URL url = new URL(constructedUrlPath);
+            URL url = new URL(urlString);
             URLConnection urlConnection = url.openConnection();
-            long sizeOfFile= urlConnection.getContentLength();
+            long sizeOfFile = urlConnection.getContentLength();
             long progress = 0;
             BufferedInputStream bis = new BufferedInputStream(url.openStream());
-            FileOutputStream fis = new FileOutputStream(downloadDir.getCanonicalPath() + "/" + downloadContent.getName());
+            String fileName = url.getFile().substring(url.getFile().lastIndexOf("/"));
+            FileOutputStream fis = new FileOutputStream(downloadDir.getCanonicalPath() + fileName);
             byte[] buffer = new byte[1024];
-            int count = 0;
-
-            while ((count = bis.read(buffer, 0, 1024)) != -1) {
-                fis.write(buffer, 0, count);
-                progress+=buffer.length;
-                progressBar.update(progress,sizeOfFile);
-            }
+            write(sizeOfFile, progress, bis, fis, buffer);
             fis.close();
             bis.close();
         } catch (IOException e) {
-            throw new UnreachableOrBrokenResource("Can't write content to file.");
+            throw new UnreachableOrBrokenResource("Unreachable or broken resource see if url is valid.");
+        }
+    }
+
+    private void write(long sizeOfFile, long progress, BufferedInputStream bis, FileOutputStream fis, byte[] buffer) throws IOException {
+        int count;
+        while ((count = bis.read(buffer, 0, 1024)) != -1) {
+            fis.write(buffer, 0, count);
+            progress += buffer.length;
+            progressBar.update(progress, sizeOfFile);
         }
     }
 }

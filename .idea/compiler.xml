@@ -21,8 +21,10 @@
     <bytecodeTargetLevel>
       <module name="DownloadAgent_main" target="1.8" />
       <module name="DownloadAgent_test" target="1.8" />
-      <module name="singleuserserver_main" target="1.5" />
-      <module name="singleuserserver_test" target="1.5" />
+      <module name="singleserveruser_main" target="1.8" />
+      <module name="singleserveruser_test" target="1.8" />
+      <module name="singleuserserver_main" target="1.8" />
+      <module name="singleuserserver_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
